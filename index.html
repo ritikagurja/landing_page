@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThrillPark Amusement Park</title>
+    <link rel="stylesheet" href="landingpage.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ThrillPark</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#" onclick="showHome()">Home</a></li>
+                <li><a href="#rides">Rides</a></li>
+                <li><a href="#tickets" onclick="showTickets()">Tickets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="main-content" class="main-content">
+        <!-- Home Page Content -->
+        <div id="home-page">
+            <h1>Welcome to ThrillPark!</h1>
+            <p>Experience the thrill of a lifetime with our exciting rides!</p>
+            <div class="ride-grid">
+                <div class="ride-box" onclick="showRideDetails('roller-coaster')">
+                    <h3>Roller Coaster</h3>
+                    <p>Feel the rush of adrenaline!</p>
+                </div>
+                <div class="ride-box" onclick="showRideDetails('ferris-wheel')">
+                    <h3>Ferris Wheel</h3>
+                    <p>Enjoy breathtaking views.</p>
+                </div>
+                <div class="ride-box" onclick="showRideDetails('water-slides')">
+                    <h3>Water Slides</h3>
+                    <p>Cool off with thrilling water rides.</p>
+                </div>
+                <div class="ride-box" onclick="showRideDetails('haunted-house')">
+                    <h3>Haunted House</h3>
+                    <p>Dare to enter the world of spooks.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ride Details Page -->
+        <div id="ride-details" class="ride-details-page"></div>
+
+        <!-- Ticket Purchase Page -->
+        <div id="ticket-purchase" class="ticket-purchase">
+            <h1>Purchase Your Tickets</h1>
+            <form action="#" method="POST" onsubmit="buyTicket(event)">
+                <label for="ride">Select Ride:</label>
+                <select id="ride" name="ride">
+                    <option value="roller-coaster">Roller Coaster</option>
+                    <option value="ferris-wheel">Ferris Wheel</option>
+                    <option value="water-slides">Water Slides</option>
+                    <option value="haunted-house">Haunted House</option>
+                </select>
+
+                <label for="quantity">Number of Tickets:</label>
+                <input type="number" id="quantity" name="quantity" min="1" max="10" required>
+
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <!-- Payment Information -->
+                <h2>Payment Information</h2>
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9123 4567" required>
+
+                <label for="expiry-date">Expiry Date:</label>
+                <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required>
+
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" placeholder="123" required>
+
+                <button type="submit" class="ticket-btn">Buy Now</button>
+            </form>
+        </div>
+
+        <!-- Confirmation Page -->
+        <div id="confirmation" class="confirmation">
+            <h1>Thank You for Your Purchase!</h1>
+            <p>Your tickets have been booked successfully. A confirmation email has been sent to you.</p>
+            <p>We look forward to seeing you at ThrillPark!</p>
+            <a href="#" onclick="showHome()" class="back-btn">Back to Home</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <h2>Contact Us</h2>
+        <p>Email: info@thrillpark.com | Phone: +123 456 7890</p>
+        <p>Follow us on social media for the latest updates!</p>
+    </footer>
+
+    <script>
+        // Function to show ride details
+        function showRideDetails(ride) {
+            var rideDetails = {
+                'roller-coaster': {
+                    title: 'Roller Coaster',
+                    description: 'Experience the thrill of high-speed twists, turns, and loops!',
+                    features: [
+                        'Multiple thrilling loops',
+                        'High-speed drops and turns',
+                        'Breathtaking views from the top',
+                        'Advanced safety features',
+                        'Duration: 3 minutes of pure excitement!'
+                    ]
+                },
+                'ferris-wheel': {
+                    title: 'Ferris Wheel',
+                    description: 'Enjoy breathtaking views from the top of our giant Ferris wheel!',
+                    features: [
+                        'Gentle and smooth ride',
+                        'Perfect for all ages',
+                        'Panoramic views of the park',
+                        'Colorful lighting at night',
+                        'Duration: 10 minutes of relaxation'
+                    ]
+                },
+                'water-slides': {
+                    title: 'Water Slides',
+                    description: 'Cool off with our exciting and refreshing water slides!',
+                    features: [
+                        'Multiple slides for all ages',
+                        'Splash pools at the end of each slide',
+                        'Wave pool and lazy river',
+                        'Safe and clean water rides',
+                        'Duration: Enjoy all day!'
+                    ]
+                },
+                'haunted-house': {
+                    title: 'Haunted House',
+                    description: 'Dare to enter our spooky and spine-chilling haunted house!',
+                    features: [
+                        'Scary and thrilling experience',
+                        'Live actors and special effects',
+                        'Dark and eerie atmosphere',
+                        'Perfect for those who love a good scare',
+                        'Duration: 15 minutes of fear!'
+                    ]
+                }
+            };
+
+            var rideContent = rideDetails[ride];
+            var rideDetailsPage = document.getElementById('ride-details');
+
+            rideDetailsPage.innerHTML = `
+                <h1>${rideContent.title}</h1>
+                <p>${rideContent.description}</p>
+                <ul>
+                    ${rideContent.features.map(feature => `<li>${feature}</li>`).join('')}
+                </ul>
+                <a href="#" class="ticket-btn" onclick="showTickets()">Buy Tickets</a>
+            `;
+
+            // Hide other sections and show the ride details
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('ticket-purchase').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'none';
+            rideDetailsPage.style.display = 'block';
+        }
+
+        // Function to show the ticket purchase page
+        function showTickets() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('ride-details').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'none';
+            document.getElementById('ticket-purchase').style.display = 'block';
+        }
+
+        // Function to show the home page
+        function showHome() {
+            document.getElementById('ride-details').style.display = 'none';
+            document.getElementById('ticket-purchase').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'none';
+            document.getElementById('home-page').style.display = 'block';
+        }
+
+        // Function to handle ticket purchase form submission
+        function buyTicket(event) {
+            event.preventDefault();
+
+            // Hide the ticket purchase page and show the confirmation page
+            document.getElementById('ticket-purchase').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
